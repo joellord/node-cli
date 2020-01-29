@@ -1,12 +1,22 @@
 {
   "title": "Building CLI Tools In NodeJS",
   "presenter": "Joel Lord",
-  "date": "December 9, 2019",
-  "conference": "Montreal Open Source Meetup",
-  "location": "Montréal, Canada",
+  "date": "January 29, 2020",
+  "conference": "Nobo.js",
+  "location": "Newburyport, MA",
   "twitter": {
     "presenter": "@joel__lord",
-    "event": "#nodejsinteractive"
+    "event": "#nobojs"
+  },
+  "company": "Red Hat OpenShift",
+  "frame": {
+    "top": {                    
+      "center": "title"
+    },
+    "bottom": {
+      "left": ["twitter.presenter", "twitter.event"],
+      "center": "company"
+    }
   },
   "slides": [
     {
@@ -19,7 +29,7 @@
         "title": "Hi, I'm Joel",
         "list": [
           "Dev Advocate @ Red Hat OpenShift",
-          "Based in Toronto",
+          "Based in Ottawa",
           "💓  Twitter: @joel__lord",
           "I have stickers "
         ]
@@ -58,7 +68,8 @@
       "list": [
         "create-react-app [blue][bright]https://github.com/facebook/create-react-app[reset]",
         "cli-slides [blue][bright]http://github.com/joellord/cli-slides[reset]",
-        "Dockly [blue][bright]https://github.com/lirantal/dockly[reset]"
+        "Dockly [blue][bright]https://github.com/lirantal/dockly[reset]",
+        "I Pipe To (ipt) [blue][bright]https://github.com/ruyadorno/ipt[reset]"
       ]
     },
     {
@@ -194,6 +205,16 @@
       "type": "simple",
       "title": "Running Shell Commands",
       "text": "In order to run shell commands, you can use [cyan]exec()[reset]. This lets you run a command and parse the response.\n\nThe callback only gets triggered after the command is processed."
+    },
+    {
+      "type": "simple",
+      "title": "Running Shell Commands",
+      "text": "You can also use [cyan]require('child_process').spawn[reset].\n\nYou can then use output from a stream."
+    },
+    {
+      "type": "simple",
+      "title": "Running Shell Commands",
+      "text": "Some libraries like [cyan]node-pty[reset] are there to make your life easier."
     },
     {
       "type": "simple",
@@ -340,6 +361,46 @@
       "text": "By using those simple APIs, you can build powerful CLI applications. This whole presentation deck is built with no dependencies whatsoever."
     },
     {
+      "type": "titleOnly",
+      "title": "Tools and Libraries"
+    },
+    {
+      "type": "list",
+      "title": "oclif",
+      "list": [
+        "Available on npm (use with npx)",
+        "Create single commands or multi commands",
+        "Includes all the scaffolding for linting, packaging, testing, ... "
+      ]
+    },
+    {
+      "type": "list",
+      "title": "yargs",
+      "list": [
+        "Argument processing made easy",
+        "Handles short (-v) or long (--version) types",
+        "Handles flags and arguments"
+      ]
+    },
+    {
+      "type": "list",
+      "title": "chalk",
+      "list": [
+        "Colorize text",
+        "Can move the cursor around or clear the screen",
+        "Syntax is awkward"
+      ]
+    },
+    {
+      "type": "list",
+      "title": "node-pty",
+      "list": [
+        "Emulates a terminal",
+        "Used in XTerm, HyperTerminal and VS Code",
+        "You can set a height and width of the pseudo terminal"
+      ]
+    },
+    {
       "type": "list",
       "title": "Summary",
       "multistep": true,
@@ -348,7 +409,8 @@
         "To capture user input, use [cyan]process.stdin[reset]",
         "Parsing arguments is hard, but you can use [cyan]process.argv[reset]",
         "Full access to the file system through [cyan]fs[reset]",
-        "Use [cyan]npm[reset] to publish just like any other library"
+        "Use [cyan]npm[reset] to publish just like any other library",
+        "You can use tools like [cyan]oclif[reset], [cyan]yargs[reset], [cyan]chalk[reset] and [cyan]node-pty[reset] to make it easier"
       ]
     },
     {
@@ -364,7 +426,7 @@
     {
       "type": "simple",
       "title": "Thank you",
-      "text": "Open Source Montreal Meetup\n\nMontreal, QC - December 9th, 2019\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
+      "text": "NoBo.js\n\nNewburyport, MA - January 29th, 2020\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
     }
   ]
 }
