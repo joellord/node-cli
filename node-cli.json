@@ -1,0 +1,370 @@
+{
+  "title": "Building CLI Tools In NodeJS",
+  "presenter": "Joel Lord",
+  "date": "December 9, 2019",
+  "conference": "Montreal Open Source Meetup",
+  "location": "Montréal, Canada",
+  "twitter": {
+    "presenter": "@joel__lord",
+    "event": "#nodejsinteractive"
+  },
+  "slides": [
+    {
+      "type": "title",
+      "title": "Building CLI Tools In Node"
+    },
+    {
+      "type": "split",
+      "left": {
+        "title": "Hi, I'm Joel",
+        "list": [
+          "Dev Advocate @ Red Hat OpenShift",
+          "Based in Toronto",
+          "💓  Twitter: @joel__lord",
+          "I have stickers "
+        ]
+      },
+      "right": {
+        "text": [
+          "    .-\"\"\"\"\"-.",
+          "    / _____/\\_\\",
+          "   //`__   __ \\\\",
+          "  //  (o) (o)  \\\\",
+          " (_    (___)    _)",
+          "   \\  \\_____/  /",
+          "    `-._   _.-'",
+          "    __.-)_(-,__ ",
+          " ./'/   |_|   \\`\\.",
+          " /   `\"\"\"\"\"\"\"\"\"\"`  \\"
+        ]
+      }
+    },
+    {
+      "type": "titleOnly",
+      "title": "Why?"
+    },
+    {
+      "type": "list",
+      "title": "Why Node for CLI?",
+      "list": [
+        "Familiar language and tooling",
+        "Bash is hard...  Or unfamiliar at least.",
+        "Because I can!"
+      ]
+    },
+    {
+      "type": "list",
+      "title": "Examples out the in the wild",
+      "list": [
+        "create-react-app [blue][bright]https://github.com/facebook/create-react-app[reset]",
+        "cli-slides [blue][bright]http://github.com/joellord/cli-slides[reset]",
+        "Dockly [blue][bright]https://github.com/lirantal/dockly[reset]"
+      ]
+    },
+    {
+      "type": "speaking",
+      "character": "me-oh-no",
+      "text": "But where do I start?"
+    },
+    {
+      "type": "titleOnly",
+      "title": "Outputs"
+    },
+    {
+      "type": "simple",
+      "title": "Show Something To Your Users",
+      "text": "You can still use [cyan]console[reset] but [cyan]process.stdout[reset] is much more powerful.\n\nThe latter will let you move your cursor around and use colors."
+    },
+    {
+      "type": "code",
+      "title": "Output to the terminal",
+      "text": "You can use console.log",
+      "code": [
+        "[green]console[reset].[yellow]log[reset]([magenta]\"Hello World[reset]\");"
+      ],
+      "notes": "For simple status updates, console.log workds great. It creates a new line everything and is easy to use."
+    },
+    {
+      "type": "code",
+      "title": "Output to the terminal",
+      "text": "Support for emojis!",
+      "code": [
+        "[green]console[reset].[yellow]log[reset]([magenta]\"👋  Hello World\"[reset]);"
+      ],
+      "notes": "When using emojis, you might need to add more space after it."
+    },
+    {
+      "type": "code",
+      "title": "Output to the terminal",
+      "text": "process.stdout is more powerful",
+      "code": [
+        "[cyan]process[reset].[cyan]stdout[reset].[yellow]write[reset]([magenta]\"Hello World\"[reset]);"
+      ],
+      "notes": "Starts from the current cursor position and doesn't add an additional newline."
+    },
+    {
+      "type": "terminal",
+      "title": "Output to the terminal"
+    },
+    {
+      "type": "code",
+      "title": "Colors FTW!",
+      "text": "With stdout you can use colors",
+      "code": [
+        "process.stdout.write(\"[reverse]\\x1b[31m[reset]Hello World[reverse]\\x1b[0m[reset]\");"
+      ]
+    },
+    {
+      "type": "list",
+      "title": "Colors FTW!",
+      "list": [
+        "[red]x1b[31m[reset]: Colorize in red",
+        "[reverse]x1b[7m[reset]: Reverses the colors",
+        "[bgyellow]x1b[43m[reset]: Changes the background to yellow",
+        "x1b[0m: Reset to the terminal defaults"
+      ]
+    },
+    {
+      "type": "terminal",
+      "title": "Colors FTW!"
+    },
+    {
+      "type": "list",
+      "title": "Move Around",
+      "list": [
+        "x1b[[reverse]COLUMN[reset];[reverse]ROW[reset]H: Move cursor to (COLUMN,ROW)",
+        "x1b[[reverse]N[reset]A: Move up N rows",
+        "x1b[[reverse]N[reset]B: Move down N rows",
+        "x1b[[reverse]N[reset]C: Move right N columns",
+        "x1b[[reverse]N[reset]D: Move left N columns",
+        "x1b[2J: Clears the screen"
+      ]
+    },
+    {
+      "type": "titleOnly",
+      "title": "Inputs"
+    },
+    {
+      "type": "simple",
+      "title": "Inputs",
+      "text": "To read user input, you can try to use stdin directly but your best friend is the 'readline' module."
+    },
+    {
+      "type": "code",
+      "title": "Readline",
+      "text": "You can ask for free type input",
+      "multistep": true,
+      "multistepType": "line",
+      "code": [
+        "[blue]const[reset] [cyan]readline[reset] = [yellow]require[reset]([magenta]'readline'[reset]);",
+        "[blue]const[reset] [cyan]rl[reset] = [cyan]readline[reset].[yellow]createInterface[reset]({",
+        "  [cyan]input[reset]: [cyan]process.stdin[reset],",
+        "  [cyan]output[reset]: [cyan]process.stdout[reset]",
+        "});",
+        "[cyan]rl[reset].[yellow]question[reset]([magenta]\"Hey there! What's your name? \"[reset], ([cyan]answer[reset]) [blue]=>[reset] {",  
+        "  [green]console[reset].[yellow]log[reset]([magenta]`Hello ${answer}`[reset]);",
+        "  [cyan]rl[reset].[yellow]close[reset]();",
+        "});"          
+      ]
+    },
+    {
+      "type": "code",
+      "title": "Keypress events",
+      "text": "You can bind readline to a stdin process to trigger a keypress event",
+      "multistep": true,
+      "multistepType": "line",
+      "code": [
+        "[blue]const[reset] [cyan]rl[reset] = [cyan]readline[reset].[yellow]createInterface[reset]({[cyan]input[reset]: [cyan]process.stdin[reset]});",
+        "[cyan]readline[reset].[yellow]emitKeypressEvents[reset]([cyan]process[reset].[cyan]stdin[reset]);",
+        "[cyan]process[reset].[cyan]stdin[reset].[yellow]on[reset](\"keypress\", ([dim][cyan]e[reset], [cyan]key[reset]) [blue]=>[reset] {",
+        "  [blue]if[reset]([cyan]key[reset].[cyan]name[reset] === [magenta]\"right\"[reset]) [yellow]nextSlide[reset]();",
+        "  [blue]if[reset]([cyan]key[reset].[cyan]name[reset] === [magenta]\"left\"[reset]) [yellow]previousSlide[reset]();",
+        "});"
+      ]
+    },
+    {
+      "type": "terminal",
+      "title": "Readline"
+    },
+    {
+      "type": "titleOnly",
+      "title": "Running Shell Commands"
+    },
+    {
+      "type": "simple",
+      "title": "Running Shell Commands",
+      "text": "In order to run shell commands, you can use [cyan]exec()[reset]. This lets you run a command and parse the response.\n\nThe callback only gets triggered after the command is processed."
+    },
+    {
+      "type": "simple",
+      "title": "[red][blink]WARNING[reset]",
+      "text": "Watch out for injections"
+    },
+    {
+      "type": "terminal",
+      "title": "Injections",
+      "text": "Beware that smart ass"
+    },
+    {
+      "type": "titleOnly",
+      "title": "Processing Arguments"
+    },
+    {
+      "type": "simple",
+      "title": "Processing Arguments",
+      "text": "You can get the arguments that were passed to the command line by using [cyan]process.argv[reset]. Parsing the arguments is a whole different game though.\n\nYou might want to use a library for this or keep your arguments simple."
+    },
+    {
+      "type": "code",
+      "title": "Processing Arguments",
+      "code": [
+        "[green]console[reset].[yellow]log[reset]([cyan]process.argv[reset]);"
+      ]
+    },
+    {
+      "type": "terminal",
+      "title": "Processing Arguments"
+    },
+    {
+      "type": "titleOnly",
+      "title": "File System"
+    },
+    {
+      "type": "simple",
+      "title": "File System",
+      "text": "Using [cyan]fs[reset], you can interact with your file system. Any sort of file manipulation -including file watching- can be done through this module."
+    },
+    {
+      "type": "code",
+      "title": "File System",
+      "text": "Read from a file",
+      "code": [
+        "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
+        "[cyan]fs[reset].[yellow]readFile[reset]([magenta]'logs.txt'[reset], ([dim][cyan]err[reset], [cyan]data[reset]) => {",
+        "  [green]console[reset].[yellow]log[reset]([cyan]data[reset]);",
+        "});"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "File System",
+      "text": "Write to a file",
+      "code": [
+        "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
+        "[cyan]fs[reset].[yellow]writeFile[reset]([magenta]'logs.txt'[reset], [magenta]\"Hello World\"[reset], ([dim][cyan]err[reset]) => {",
+        "  [green]console[reset].[yellow]log[reset]([magenta]\"Stuff was written to the file.\"[reset]);",
+        "});"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "File System",
+      "text": "Asynchronous vs Synchronous",
+      "code": [
+        "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
+        "[cyan]fs[reset].[yellow]writeFileSync[reset]([magenta]'logs.txt'[reset], [magenta]'Hello World'[reset]);",
+        "[blue]let[reset] [cyan]logs[reset] = [cyan]fs[reset].[yellow]readFileSync[reset]([magenta]'logs.txt'[reset]);"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "File System",
+      "text": "Watch a file",
+      "code": [
+        "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
+        "[cyan]fs[reset].[yellow]watch[reset]([magenta]'presentation.json'[reset], () [blue]=>[reset] {",
+        "  [green]console[reset].[yellow]log[reset]([magenta]'Something changed in this file'[reset]);",
+        "});"
+      ]
+    },
+    {
+      "type": "titleOnly",
+      "title": "Packaging and Publishing"
+    },
+    {
+      "type": "speaking",
+      "character": "over-cubbie",
+      "text": "That's a cool tool you've built there. How can I download it?"
+    },
+    {
+      "type": "simple",
+      "title": "Packaging and Publishing",
+      "text": "You can deploy your app to the npm for the rest of the world to enjoy.\n\nYou will only need to do a few changes to your package.json file."
+    },
+    {
+      "type": "code",
+      "title": "Packaging and Publishing",
+      "text": "Start by adding the Shebang character sequence to your .js file.",
+      "code": [
+        "[cyan]#!/usr/bin/env node[reset]",
+        "[dim][magenta]// JS stuff goes here[reset]"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "Packaging and Publishing",
+      "text": "And you can then make your NodeJS file executable by the *nix OS.",
+      "code": [
+        "[green]$[reset] [cyan]chmod +x cli.js[reset]",
+        "",
+        "[green]$[reset] [yellow]./cli.js[reset]"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "Packaging and Publishing",
+      "text": "Add a 'bin' parameter to your package.json file.",
+      "code": [
+        "{",
+        "  \"name\": \"cli-slides\"",
+        "  \"version\": \"1.0.3\"",
+        "  \"main\": \"presenter.js\"",
+        "[yellow]  \"bin\": {",
+        "    \"cli-slides\": \"./presenter.js\"",
+        "  }[reset]",
+        "}"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "Packaging and Publishing",
+      "text": "You can create a symlink for your local environment and publish using npm for all the world to see.",
+      "code": [
+        "[green]$[reset] [yellow]npm link[reset]",
+        "[green]$[reset] [yellow]npm publish[reset]"
+      ]
+    },
+    {
+      "type": "simple",
+      "title": "That's all you need",
+      "text": "By using those simple APIs, you can build powerful CLI applications. This whole presentation deck is built with no dependencies whatsoever."
+    },
+    {
+      "type": "list",
+      "title": "Summary",
+      "multistep": true,
+      "list": [
+        "To display anything, use [cyan]process.stdout[reset]",
+        "To capture user input, use [cyan]process.stdin[reset]",
+        "Parsing arguments is hard, but you can use [cyan]process.argv[reset]",
+        "Full access to the file system through [cyan]fs[reset]",
+        "Use [cyan]npm[reset] to publish just like any other library"
+      ]
+    },
+    {
+      "type": "list",
+      "title": "Links",
+      "multistep": true,
+      "list": [
+          "[bright][blue][underscore]Official NodeJS (v.10) Documentation[reset]",
+          "[bright][blue][underscore]Creating NodeJS CLI packages[reset]",
+          "[bright][blue][underscore]Escape codes in terminal[reset]"
+      ]
+    },
+    {
+      "type": "simple",
+      "title": "Thank you",
+      "text": "Open Source Montreal Meetup\n\nMontreal, QC - December 9th, 2019\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
+    }
+  ]
+}
