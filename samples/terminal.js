@@ -5,8 +5,7 @@ const child = spawn("/bin/bash", [], {
 });
 process.stdin.pipe(child.stdin);
 child.stdout.on("readable", () => {
+  process.stdout.write("--- Result from latest command --- \n");
   let char = child.stdout.read();
-  if (char.toString() === "\n") console.log("ENTER");
   process.stdout.write(char.toString());
-
 })

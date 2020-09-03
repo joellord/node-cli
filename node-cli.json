@@ -1,12 +1,12 @@
 {
   "title": "Building CLI Tools In NodeJS",
   "presenter": "Joel Lord",
-  "date": "January 29, 2020",
-  "conference": "Nobo.js",
-  "location": "Newburyport, MA",
+  "date": "April 21, 2020",
+  "conference": "Dev@Home",
+  "location": "The Internets",
   "twitter": {
     "presenter": "@joel__lord",
-    "event": "#nobojs"
+    "event": "#openshift"
   },
   "company": "Red Hat OpenShift",
   "frame": {
@@ -115,7 +115,8 @@
     },
     {
       "type": "terminal",
-      "title": "Output to the terminal"
+      "title": "Output to the terminal",
+      "text": "stdout, console, typing"
     },
     {
       "type": "code",
@@ -137,7 +138,8 @@
     },
     {
       "type": "terminal",
-      "title": "Colors FTW!"
+      "title": "Colors FTW!",
+      "text": "colors"
     },
     {
       "type": "list",
@@ -195,7 +197,24 @@
     },
     {
       "type": "terminal",
-      "title": "Readline"
+      "title": "Readline",
+      "text": "question"
+    },
+    {
+      "type": "titleOnly",
+      "title": "Use bash standards"
+    },
+    {
+      "type": "code",
+      "title": "Exit Codes",
+      "code": [
+        "[cyan]process[reset].[yellow]exit[reset]([cyan]errorCode[reset]);"
+      ]
+    },
+    {
+      "type": "terminal",
+      "title": "Exit Codes",
+      "text": "exitcode"
     },
     {
       "type": "titleOnly",
@@ -224,7 +243,12 @@
     {
       "type": "terminal",
       "title": "Injections",
-      "text": "Beware that smart ass"
+      "text": "terminal, rm -- Beware that smart ass"
+    },
+    {
+      "type": "simple",
+      "title": "Injections",
+      "text": "terminal, rm -- Beware that smart ass\nhttps://twitter.com/bendechrai/status/1186655415112622080"
     },
     {
       "type": "titleOnly",
@@ -244,7 +268,8 @@
     },
     {
       "type": "terminal",
-      "title": "Processing Arguments"
+      "title": "Processing Arguments",
+      "text": "arguments, processed"
     },
     {
       "type": "titleOnly",
@@ -262,7 +287,7 @@
       "code": [
         "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
         "[cyan]fs[reset].[yellow]readFile[reset]([magenta]'logs.txt'[reset], ([dim][cyan]err[reset], [cyan]data[reset]) => {",
-        "  [green]console[reset].[yellow]log[reset]([cyan]data[reset]);",
+        "  [green]console[reset].[yellow]log[reset]([cyan]data[reset].[yellow]toString[reset]());",
         "});"
       ]
     },
@@ -290,13 +315,46 @@
     {
       "type": "code",
       "title": "File System",
-      "text": "Watch a file",
+      "text": "Read from a file - Promisified",
+      "code": [
+        "[blue]const[reset] [cyan]readFilePromisified[reset] = ([cyan]filename[reset]) => {",
+        "  [green]return[reset] [blue]new[reset] [green]Promise[reset](([cyan]resolve[reset], [cyan]reject[reset]) => {",
+        "    [cyan]fs[reset].[yellow]readFile[reset]([cyan]filename[reset], ([cyan]err[reset], [cyan]data[reset]) => {",
+        "      [blue]if[reset] ([cyan]err[reset]) {",
+        "        [cyan]reject[reset]([cyan]err[reset]);",
+        "        [green]return[reset];",
+        "      }",
+        "      [cyan]resolve[reset]([cyan]data[reset]);",
+        "    });",
+        "  });",
+        "}"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "File System",
+      "text": "Read from a file - Promisified",
+      "code": [
+        "[cyan]readFilePromisified[reset]([magenta]\"hello.txt\"[reset])",
+        "  .[yellow]then[reset]([cyan]data[reset] => [cyan]data[reset].[yellow]toString[reset]())",
+        "  .[yellow]then[reset]([cyan]data[reset] => [green]console[reset].[yellow]log[reset]([cyan]data[reset]));"
+      ]
+    },
+    {
+      "type": "code",
+      "title": "File System",
+      "text": "Watch a file (~346)",
       "code": [
         "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
         "[cyan]fs[reset].[yellow]watch[reset]([magenta]'presentation.json'[reset], () [blue]=>[reset] {",
         "  [green]console[reset].[yellow]log[reset]([magenta]'Something changed in this file'[reset]);",
         "});"
       ]
+    },
+    {
+      "type": "terminal",
+      "title": "Read and Write from file",
+      "text": "readfile, writefile"
     },
     {
       "type": "titleOnly",
@@ -426,7 +484,7 @@
     {
       "type": "simple",
       "title": "Thank you",
-      "text": "NoBo.js\n\nNewburyport, MA - January 29th, 2020\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
+      "text": "Dev@Home\n\nA Remote Presentation - April 2020\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
     }
   ]
 }
