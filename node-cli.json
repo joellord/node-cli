@@ -1,12 +1,12 @@
 {
   "title": "Building CLI Tools In NodeJS",
   "presenter": "Joel Lord",
-  "date": "April 21, 2020",
-  "conference": "Dev@Home",
+  "date": "September 3, 2020",
+  "conference": "iJS London",
   "location": "The Internets",
   "twitter": {
     "presenter": "@joel__lord",
-    "event": "#openshift"
+    "event": "#iJS"
   },
   "company": "Red Hat OpenShift",
   "frame": {
@@ -248,7 +248,7 @@
     {
       "type": "simple",
       "title": "Injections",
-      "text": "terminal, rm -- Beware that smart ass\nhttps://twitter.com/bendechrai/status/1186655415112622080"
+      "text": "terminal, rm -- Beware that smart ass\n[underline][blue]https://twitter.com/bendechrai/status/1186655415112622080[reset]"
     },
     {
       "type": "titleOnly",
@@ -484,7 +484,7 @@
     {
       "type": "simple",
       "title": "Thank you",
-      "text": "Dev@Home\n\nA Remote Presentation - April 2020\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
+      "text": "iJS\n\nOnline - September 2020\n\n[blue][bright][underscore]http://ezurl.to/cli[reset]"
     }
   ]
 }
