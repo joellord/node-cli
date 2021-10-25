@@ -1,14 +1,14 @@
 {
   "title": "Building CLI Tools In NodeJS",
   "presenter": "Joel Lord",
-  "date": "October 5, 2020",
-  "conference": "Colorado Springs Tech Conf",
-  "location": "The Internets",
+  "date": "October 25, 2021",
+  "conference": "iJS Munich",
+  "location": "Munich, DE",
   "twitter": {
     "presenter": "@joel__lord",
-    "event": "#nodejs"
+    "event": "#iJSCon"
   },
-  "company": "Red Hat OpenShift",
+  "company": "[green]MongoDB[reset]",
   "frame": {
     "top": {                    
       "center": "title"
@@ -28,10 +28,9 @@
       "left": {
         "title": "Hi, I'm Joel",
         "list": [
-          "Dev Advocate @ Red Hat OpenShift",
-          "Based in Ottawa",
-          "💓  Twitter: @joel__lord",
-          "I have stickers "
+          "Dev Advocate @ [green]MongoDB[reset]",
+          "Based in Ottawa, Canada",
+          "💓  Twitter: [blue]@joel__lord[reset]"
         ]
       },
       "right": {
@@ -345,7 +344,7 @@
       "title": "File System",
       "text": "Watch a file (~346)",
       "code": [
-        "[blue]const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
+        "const[reset] [cyan]fs[reset] = [yellow]require[reset]([magenta]'fs'[reset]);",
         "[cyan]fs[reset].[yellow]watch[reset]([magenta]'presentation.json'[reset], () [blue]=>[reset] {",
         "  [green]console[reset].[yellow]log[reset]([magenta]'Something changed in this file'[reset]);",
         "});"
